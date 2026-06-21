@@ -1,0 +1,4 @@
+[submodule "external/LoRaLibrary"]
+	path = external/LoRaLibrary
+	url = git@github.com:Enz0Moura/LoRaLibrary.git
+	branch = new-modular-structure
