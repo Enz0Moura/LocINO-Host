@@ -2,21 +2,25 @@
 #include <LocINO/LocINOCLI.hpp>
 #include <LocINO/Types.hpp>
 #include <chrono>
+#include <thread>
 
 int main() {
     LocINO::LocINOSerialClient client("/dev/ttyACM0", 9600);
     LocINO::EventPacket event;
+    
 
-    while (true){
-        
+    int txCount = 0;
+
+    while (true) {
+        std::cout << "Sending #" << ++txCount << std::endl;
         auto packet = LocINO::LoRaPacket::fromText("Hello, World!");
+
         client.sendMessage(packet);
 
-        while (client.receiveEvent(event)){
+        while ((client.receiveEvent(event, 200)) ) {
             LocINO::CLI::printEvent(event);
-            if (event.type == LocINO::CpuEventType::LoRaTxOk) break;
         }
-        std::chrono::seconds(10);
-    
+
+        //std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }

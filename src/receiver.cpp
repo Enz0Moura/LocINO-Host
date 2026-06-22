@@ -2,16 +2,16 @@
 #include <LocINO/LocINOCLI.hpp>
 #include <LocINO/Types.hpp>
 #include <chrono>
+#include <thread>
 
 int main() {
     LocINO::LocINOSerialClient client("/dev/ttyACM0", 9600);
     LocINO::EventPacket event;
     while (true){
-        while ((client.receiveEvent(event)) && (event.type == LocINO::CpuEventType::LoRaRx)){
+        while ((client.receiveEvent(event))){
             LocINO::CLI::printEvent(event);
             client.listenRecord();
         }
-        std::chrono::seconds(3);
     }
 
 }
