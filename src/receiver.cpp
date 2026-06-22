@@ -5,13 +5,13 @@
 #include <thread>
 
 int main() {
-    LocINO::LocINOSerialClient client("/dev/ttyACM0", 9600);
+    LocINO::LocINOSerialClient client("/dev/ttyACM1", 9600);
     LocINO::EventPacket event;
 
     while (true){
+        client.listenRecord();
         while ((client.receiveEvent(event, 100))){
-            LocINO::CLI::printEvent(event);
-            client.listenRecord();
+            LocINO::CLI::printEvent(event);   
         }
     }
 
