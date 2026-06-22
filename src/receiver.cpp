@@ -7,8 +7,9 @@
 int main() {
     LocINO::LocINOSerialClient client("/dev/ttyACM0", 9600);
     LocINO::EventPacket event;
+
     while (true){
-        while ((client.receiveEvent(event))){
+        while ((client.receiveEvent(event, 100))){
             LocINO::CLI::printEvent(event);
             client.listenRecord();
         }
