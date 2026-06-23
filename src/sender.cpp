@@ -5,7 +5,7 @@
 #include <thread>
 
 int main() {
-    LocINO::LocINOSerialClient client("/dev/ttyACM0", 9600);
+    LocINO::LocINOSerialClient client = LocINO::LocINOSerialClient("/dev/ttyACM1", 9600);
     LocINO::EventPacket event;
     
 
